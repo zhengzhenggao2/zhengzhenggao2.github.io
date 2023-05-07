@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-面试题总结" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/05/06/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/" class="article-date">
+  <time class="dt-published" datetime="2023-05-06T05:05:27.000Z" itemprop="datePublished">2023-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/06/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/">面试题总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h5 id="Redis五大基本数据类型"><a href="#Redis五大基本数据类型" class="headerlink" title="###Redis五大基本数据类型"></a>###Redis五大基本数据类型</h5><p>1.字符串</p>
+<p>2.列表List</p>
+<p>3.集合Set</p>
+<p>4.哈希Hash</p>
+<p>5.Zset</p>
+<hr>
+<h5 id="mysql主从复制原理"><a href="#mysql主从复制原理" class="headerlink" title="###mysql主从复制原理"></a>###mysql主从复制原理</h5><p>①当Master节点进行insert、update、delete操作时，会按顺序写入到binlog中。</p>
+<p>②salve从库连接master主库，,Master有多少个slave就会创建多少个binlog dump线程。</p>
+<p>③当Master节点的binlog发生变化时，binlog dump 线程会通知所有的salve节点，并将相应的binlog内容推送给slave节点。</p>
+<p>④I&#x2F;O线程接收到 binlog 内容后，将内容写入到本地的 relay-log。</p>
+<p>⑤SQL线程读取I&#x2F;O线程写入的relay-log，并且根据 relay-log 的内容对从数据库做对应的操作。</p>
+<hr>
+<h5 id="mysql主从同步是怎么实现的"><a href="#mysql主从同步是怎么实现的" class="headerlink" title="###mysql主从同步是怎么实现的"></a>###mysql主从同步是怎么实现的</h5><p>通过二进制日志（Binary Log）实现。</p>
+<p>1，当在主库上执行一条修改操作时，该操作会被写入二进制日志中。</p>
+<p>2，从库会连接到主库，并请求要同步的数据副本。</p>
+<p>3，<strong>从库发出的第一个请求是“dumping”</strong>，它请求主库将所有未同步的数据发送给从库。主库将符合条件的二进制日志文件和位置信息发送给从库。从库接收到这些信息后，会开始从主库复制数据，然后将其应用到自己的数据副本中，直到同步到最新位置。</p>
+<p>在初始同步完成后，<strong>从库会根据主库上存储的二进制日志的更新来保持与主库同步。从库会定期向主库发送心跳包，以确保与主库的连接正常。</strong>如果从库检测到主库上有新的二进制日志，则会下载并解析这些日志，并将其中的内容应用到自己的数据副本中</p>
+<hr>
+<h5 id="nginx和apache的区别"><a href="#nginx和apache的区别" class="headerlink" title="###nginx和apache的区别"></a>###nginx和apache的区别</h5><ol>
+<li><strong>apache 是同步多进程模型，一个连接对应一个进程</strong>，而 <strong>nginx 是异步的，多个连接（万级别）可以对应一个进程</strong><br>2.一般来说，<strong>需要性能的 web 服务，用 nginx</strong> 。如果<strong>不需要性能只求稳定，更考虑 apache</strong> ，后者的各种功能模块实现得比前者，例如 ssl 的模块就比前者好，可配置项多<br>Apache:<br>apache 的 rewrite 比 nginx 强大，在 rewrite 频繁的情况下，用 apache<br>apache 对 PHP 支持比较简单，nginx 需要配合其他后端用<br>apache 在处理动态请求有优势，nginx 在这方面是鸡肋，一般动态请求要 apache 去做，nginx 适合静态和反向。<br>apache 仍然是目前的主流，拥有丰富的特性，成熟的技术和开发社区</li>
+</ol>
+<p>Nginx:<br><strong>轻量级</strong>，采用 C 进行编写，同样的 web 服务，会占用更少的内存及资源<br><strong>抗并发</strong>，nginx 以 epoll and kqueue 作为开发模型，处理请求是<strong>异步非阻塞的</strong>，负载能力比 apache 高很多，而 apache 则是<strong>阻塞型</strong>的。在高并发下 nginx 能保持低资源低消耗高性能 ，而 apache 在 PHP 处理慢或者前端压力很大的情况下，容易出现进程数飙升，拒绝服务的现象。<br>nginx 处理静态文件好，静态处理性能比 apache 高三倍以上<br>nginx 的设计高度模块化，编写模块相对简单<br>nginx 作为负载均衡服务器，支持 7 层负载均衡<br>nginx 本身就是一个反向代理服务器，可以作为邮件代理服务器</p>
+<hr>
+<h5 id="请阐述-binlog-的三种日志格式？"><a href="#请阐述-binlog-的三种日志格式？" class="headerlink" title="###请阐述 binlog 的三种日志格式？"></a>###请阐述 binlog 的三种日志格式？</h5><p>ROW：日志中会记录成每一行数据被修改的形式，然后在slave端再对相同的数据进行修改，只记录要修改的数据，只有value，不会有sql多表关联的情况</p>
+<p>Statement：每一条会修改数据的sql都会记录在binlog中（Mysql默认是使用Statement日志格式）</p>
+<p>MiXED：一般的语句修改使用statment格式保存binlog，如一些函数，statement无法完成主从复制的操作，则采用row格式保存binlog,MySQL会根据执行的每一条具体的sql语句来区分对待记录的日志形式，也就是在Statement和Row之间选择一种.新版本的MySQL中队row level模式也被做了优化，并不是所有的修改都会以row level来记录，像遇到表结构变更的时候就会以statement模式来记录。至于update或者delete等修改数据的语句，还是会记录所有行的变更（推荐使用MIXED）</p>
+<hr>
+<h5 id="MySQL-服务有哪些日志文件"><a href="#MySQL-服务有哪些日志文件" class="headerlink" title="###MySQL 服务有哪些日志文件"></a>###MySQL 服务有哪些日志文件</h5><p>错误日志、binlog 日志、查询日志、慢查询日志、事务日志、中继日志</p>
+<hr>
+<h5 id="下列与慢查询日志选项的作用？slow-query-log-，-slow-query-log-file，long-query-time"><a href="#下列与慢查询日志选项的作用？slow-query-log-，-slow-query-log-file，long-query-time" class="headerlink" title="###下列与慢查询日志选项的作用？slow-query-log ， slow-query-log-file，long-query-time"></a>###下列与慢查询日志选项的作用？slow-query-log ， slow-query-log-file，long-query-time</h5><p>slow-query-log 启用慢查询日志 </p>
+<p>slow-query-log-file 定义慢查询日志名称 </p>
+<p>long-query-time 指定超时时间</p>
+<hr>
+<h5 id="MySQL-数据库密码忘了怎么办？"><a href="#MySQL-数据库密码忘了怎么办？" class="headerlink" title="###MySQL 数据库密码忘了怎么办？"></a>###MySQL 数据库密码忘了怎么办？</h5><ol>
+<li><p>停止 MySQL 服务程序 </p>
+</li>
+<li><p>跳过授权表启动 MySQL 服务程序 skip-grant-tables </p>
+</li>
+<li><p>重设 root 密码（更新 user 表记录） </p>
+</li>
+<li><p>以正常方式重启 MySQL 服务程序</p>
+</li>
+</ol>
+<hr>
+<h5 id="drop-delete和truncate区别"><a href="#drop-delete和truncate区别" class="headerlink" title="###drop,delete和truncate区别"></a>###drop,delete和truncate区别</h5><p>TRUNCATE 和 DELETE 只删除数据，而 DROP 则删除整个表（结构和数据）。</p>
+<p>1）DELETE 删除操作作为事务记录在日志中保存以便进行进行回滚操作。</p>
+<p> 2）TRUNCATE TABLE 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。</p>
+<p>3）表和索引所占空间。当表被 TRUNCATE 后，这个表和索引所占用的空间会恢复到初始大小，而DELETE操作不会减少表或索引所占用的空间。drop 语句将表所占用的空间全释放掉。</p>
+<hr>
+<p>###数据库优化思路</p>
+<hr>
+<h5 id="了解慢日志查询吗？统计过慢查询吗？对慢查询如何优化？"><a href="#了解慢日志查询吗？统计过慢查询吗？对慢查询如何优化？" class="headerlink" title="###了解慢日志查询吗？统计过慢查询吗？对慢查询如何优化？"></a>###了解慢日志查询吗？统计过慢查询吗？对慢查询如何优化？</h5><p>慢查询一般用于记录执行时间超过某个临界值的SQL语句的日志。</p>
+<p>相关参数：</p>
+<ul>
+<li>slow_query_log：是否开启慢日志查询，1表示开启，0表示关闭。</li>
+<li>slow_query_log_file：MySQL数据库慢查询日志存储路径。</li>
+<li>long_query_time：慢查询阈值，当SQL语句查询时间大于阈值，会被记录在日志上。</li>
+<li>log_queries_not_using_indexes：未使用索引的查询会被记录到慢查询日志中。</li>
+<li>log_output：日志存储方式。“FILE”表示将日志存入文件。“TABLE”表示将日志存入数据库。</li>
+</ul>
+<p>如何对慢查询进行优化？</p>
+<ul>
+<li>分析语句的执行计划，查看SQL语句的索引是否命中</li>
+<li>优化数据库的结构，将字段很多的表分解成多个表，或者考虑建立中间表。</li>
+<li>优化LIMIT分页。</li>
+</ul>
+<hr>
+<h5 id="常见状态码"><a href="#常见状态码" class="headerlink" title="###常见状态码"></a>###常见状态码</h5><h5 id="1xx-临时响应-表示临时响应并需要请求者继续执行操作的状态代码"><a href="#1xx-临时响应-表示临时响应并需要请求者继续执行操作的状态代码" class="headerlink" title="1xx(临时响应)表示临时响应并需要请求者继续执行操作的状态代码"></a>1xx(临时响应)表示临时响应并需要请求者继续执行操作的状态代码</h5><p><strong>101 (切换协议)</strong> 请求者已要求服务器切换协议，服务器已确认并准备切换。</p>
+<p><strong>201 (已创建)</strong> 请求成功并且服务器创建了新的资源。</p>
+<h5 id="3xx-重定向-表示要完成请求，需要进一步操作。-通常，这些状态代码用来重定向。"><a href="#3xx-重定向-表示要完成请求，需要进一步操作。-通常，这些状态代码用来重定向。" class="headerlink" title="3xx (重定向) 表示要完成请求，需要进一步操作。 通常，这些状态代码用来重定向。"></a>3xx (重定向) 表示要完成请求，需要进一步操作。 通常，这些状态代码用来重定向。</h5><p><strong>301 (永久移动)</strong> 请求的网页已永久移动到新位置。 服务器返回此响应(对 GET 或 HEAD 请求的响应)时，会自动将请求者转到新位置。<br><strong>302 (临时移动)</strong> 服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求。</p>
+<h5 id="4xx-请求错误-这些状态代码表示请求可能出错，妨碍了服务器的处理"><a href="#4xx-请求错误-这些状态代码表示请求可能出错，妨碍了服务器的处理" class="headerlink" title="4xx(请求错误) 这些状态代码表示请求可能出错，妨碍了服务器的处理"></a>4xx(请求错误) 这些状态代码表示请求可能出错，妨碍了服务器的处理</h5><p><strong>400 (错误请求)</strong> 服务器不理解请求的语法。<br><strong>401 (未授权)</strong> 请求要求身份验证。 对于需要登录的网页，服务器可能返回此响应。<br><strong>403 (禁止)</strong> 服务器拒绝请求。<br><strong>404 (未找到)</strong> 服务器找不到请求的网页</p>
+<p><strong>405 (方法禁用)</strong> 禁用请求中指定的方法。</p>
+<p><strong>408 (请求超时)</strong> 服务器等候请求时发生超时。</p>
+<p>**5xx(服务器错误)**这些状态代码表示服务器在尝试处理请求时发生内部错误。 这些错误可能是服务器本身的错误，而不是请求出错</p>
+<p>**500 (服务器内部错误) 服务器遇到错误，无法完成请求。<br>**501 (尚未实施) 服务器不具备完成请求的功能。 例如，服务器无法识别请求方法时可能会返回此代码。<br>**502 (错误网关) 服务器作为网关或代理，从上游服务器收到无效响应。<br><strong>503 (服务不可用) 服务器目前无法使用(由于超载或停机维护)</strong> 通常，这只是暂时状态。<br>**504 (网关超时) 服务器作为网关或代理，但是没有及时从上游服务器收到请求。<br>**505 (HTTP 版本不受支持) 服务器不支持请求中所用的 HTTP 协议版本。</p>
+<hr>
+<h5 id="linux系统命令四剑客"><a href="#linux系统命令四剑客" class="headerlink" title="###linux系统命令四剑客"></a>###linux系统命令四剑客</h5><p>1、grep：用于查找文件中匹配的字符串。它可用于搜索单个文件或多个文件。grep命令的语法为：grep [选项][搜索文本] [文件名]。</p>
+<p>2、awk：用于对文本进行处理和格式化。它可以对文本进行分割、过滤、排序等操作。awk命令的语法为：awk [选项][模式] [文件名]。</p>
+<p>3、sed：用于对文本进行编辑和转换。它可以对文本进行替换、删除、插入等操作。sed命令的语法为：sed [选项][命令] [文件名]。</p>
+<p>4、find：用于在文件系统中查找文件和目录。它可以按照不同的条件进行查找，如名称、大小、时间等。find命令的语法为：find [路径][选项] [表达式]。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/06/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/" data-id="clhd9i0sj0001foaq6ta12r6j" data-title="面试题总结" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/05/06/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2023-05-05T16:32:51.387Z" itemprop="datePublished">2023-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/06/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/06/hello-world/" data-id="clhd9i0s60000foaqaod1gfju" data-title="Hello World" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/06/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/">面试题总结</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/06/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
