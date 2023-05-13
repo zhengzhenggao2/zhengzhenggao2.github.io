@@ -14,7 +14,7 @@
 <meta property="og:description" content="###Redis五大基本数据类型1.字符串 2.列表List 3.集合Set 4.哈希Hash 5.Zset  ###mysql主从复制原理①当Master节点进行insert、update、delete操作时，会按顺序写入到binlog中。 ②salve从库连接master主库，,Master有多少个slave就会创建多少个binlog dump线程。 ③当Master节点的binlog发生变化">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-05-06T05:05:27.000Z">
-<meta property="article:modified_time" content="2023-05-11T08:05:32.855Z">
+<meta property="article:modified_time" content="2023-05-12T12:38:11.976Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -139,13 +139,6 @@
 </li>
 </ol>
 <hr>
-<h5 id="drop-delete和truncate区别"><a href="#drop-delete和truncate区别" class="headerlink" title="###drop,delete和truncate区别"></a>###drop,delete和truncate区别</h5><p>TRUNCATE 和 DELETE 只删除数据，而 DROP 则删除整个表（结构和数据）。</p>
-<p>1）DELETE 删除操作作为事务记录在日志中保存以便进行进行回滚操作。</p>
-<p> 2）TRUNCATE TABLE 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。</p>
-<p>3）表和索引所占空间。当表被 TRUNCATE 后，这个表和索引所占用的空间会恢复到初始大小，而DELETE操作不会减少表或索引所占用的空间。drop 语句将表所占用的空间全释放掉。</p>
-<hr>
-<p>###数据库优化思路</p>
-<hr>
 <h5 id="了解慢日志查询吗？统计过慢查询吗？对慢查询如何优化？"><a href="#了解慢日志查询吗？统计过慢查询吗？对慢查询如何优化？" class="headerlink" title="###了解慢日志查询吗？统计过慢查询吗？对慢查询如何优化？"></a>###了解慢日志查询吗？统计过慢查询吗？对慢查询如何优化？</h5><p>慢查询一般用于记录执行时间超过某个临界值的SQL语句的日志。</p>
 <p>相关参数：</p>
 <ul>
@@ -176,17 +169,46 @@
 <p>3、sed：用于对文本进行编辑和转换。它可以对文本进行替换、删除、插入等操作。sed命令的语法为：sed [选项][命令] [文件名]。</p>
 <p>4、find：用于在文件系统中查找文件和目录。它可以按照不同的条件进行查找，如名称、大小、时间等。find命令的语法为：find [路径][选项] [表达式]。</p>
 <hr>
+<h3 id="数据库-的聚合函数"><a href="#数据库-的聚合函数" class="headerlink" title="###数据库 的聚合函数"></a>###数据库 的聚合函数</h3><ul>
+<li><strong>5大常见聚合函数类型</strong></li>
+<li><strong>AVG()</strong> ：只适用于数值类型的字段或变量。不包含NULL值</li>
+<li><strong>SUM()</strong> ：只适用于数值类型的字段或变量。不包含NULL值</li>
+<li><strong>MAX()</strong> ：适用于数值类型、字符串类型、日期时间类型的字段（或变量）不包含NULL值</li>
+<li><strong>MIN()</strong> ：适用于数值类型、字符串类型、日期时间类型的字段（或变量）不包含NULL值</li>
+<li><strong>COUNT()</strong> ：计算指定字段在查询结构中出现的个数（不包含NULL值）</li>
+</ul>
+<hr>
+<h3 id="清空表-的三种方式"><a href="#清空表-的三种方式" class="headerlink" title="###清空表 的三种方式"></a>###清空表 的三种方式</h3><p>sql清空表数据的三种方式：<br>1、truncate–删除所有数据，保留表结构，不能撤销还原<br>2、delete–是逐行删除速度极慢，不适合大量数据删除<br>3、drop–删除表，数据和表结构一起删除，快速<br>二、语法<br>truncate table 表名<br>delete from 表名<br>delete from 表名 where 列名&#x3D;”value “<br>drop form 表名</p>
+<hr>
+<h3 id="drop-delete和truncate区别"><a href="#drop-delete和truncate区别" class="headerlink" title="###drop,delete和truncate区别"></a>###drop,delete和truncate区别</h3><p>TRUNCATE 和 DELETE 只删除数据，而 DROP 则删除整个表（结构和数据）。</p>
+<p>1）DELETE 删除操作作为事务记录在日志中保存以便进行进行回滚操作。</p>
+<p> 2）TRUNCATE TABLE 则一次性地从表中删除所有的数据并不把单独的删除操作记录记入日志保存，删除行是不能恢复的。并且在删除的过程中不会激活与表有关的删除触发器。执行速度快。</p>
+<p>3）表和索引所占空间。当表被 TRUNCATE 后，这个表和索引所占用的空间会恢复到初始大小，而DELETE操作不会减少表或索引所占用的空间。drop 语句将表所占用的空间全释放掉。</p>
+<hr>
+<h3 id="数据库增删改查"><a href="#数据库增删改查" class="headerlink" title="###数据库增删改查"></a>###数据库增删改查</h3><p><strong>新增</strong></p>
+<p>新增一条数据<br>insert into 表名 values(全部列的值，用”,“分割);<br>insert into 表名 (字段1, 字段2) values (值1, 值2);</p>
+<p>新增多行数据<br>insert into 表名 values(全部列的值)，(全部列的值)….;<br>insert into 表名 (字段1, 字段2) values (值1, 值2),(值1, 值2),(值1, 值2)….;</p>
+<p><strong>删除</strong></p>
+<p>delete from 表名 where 条件;<br>注意：在修改或者删除数据的时候一定要指定条件，否则可能造成所有数据被污染或者清空。</p>
+<p>truncate 表名;<br>清空数据(会把全表都给清洗掉，并且自增主键从1开始)</p>
+<p><strong>修改</strong></p>
+<p>update 表名 set 列1&#x3D;值1，列2&#x3D;值2，… where 条件;</p>
+<p><strong>查询</strong></p>
+<p>select * from 表名;<br>select * from 表名 where 条件;<br>select 字段 (as 别名) from 表名 where 条件;<br>select * from 表名 where 字段 like ‘%值%’;</p>
+<p>左右连接查询（left outer join 的简写 left join）<br>select a.c from a left&#x2F;right outer join b on a.d &#x3D; b.d;<br>select a.c from a left&#x2F;right  join b on a.d &#x3D; b.d;</p>
+<p>内连接（inner join 简写 join）<br>select * from a inner join b on a.d &#x3D; b.d;<br>select * from a join b on a.d &#x3D; b.d;</p>
+<p>全连接（full outer join 简写 full join）<br>select * from a full outer jion b on a.d&#x3D;b.d;<br>select * from a full  jion b on a.d&#x3D;b.d;</p>
+<p><strong>去重查询</strong></p>
+<p>select distinct * from 表名; </p>
+<hr>
 <p>###linux如何对磁盘进行分区管理</p>
-<hr>
-<p>###数据库中的聚合函数</p>
-<hr>
 <p>###常见命令</p>
-<hr>
+<p>###数据库优化思路</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/05/06/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/" data-id="clhj91fh40001ecaq4xqcc9mp" data-title="linux面试题总结" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/05/06/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/" data-id="clhl831w20002y4aq9q80eqdw" data-title="linux面试题总结" class="article-share-link">Share</a>
       
       
       
