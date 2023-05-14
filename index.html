@@ -267,12 +267,33 @@
 <h5 id="第二层交换机和路由器的区别："><a href="#第二层交换机和路由器的区别：" class="headerlink" title="第二层交换机和路由器的区别："></a>第二层交换机和路由器的区别：</h5><p>​        传统交换机从网桥发展而来，属于OSI第二层即数据链路层设备。它根据MAC地址寻址，通过站表选择路由，站表的建立和维护由交换机自动进行。路由器属于OSI第三层即网络层设备，它根据IP地址进行寻址，通过路由表路由协议产生。交换机最大的好处是快速，由于交换机只须识别帧中MAC地址，直接根据MAC地址产生选择转发端口算法简单，便于ASIC实现，因此转发速度极高</p>
 <h5 id="第三层交换机与传统路由器相比有如下优点："><a href="#第三层交换机与传统路由器相比有如下优点：" class="headerlink" title="第三层交换机与传统路由器相比有如下优点："></a>第三层交换机与传统路由器相比有如下优点：</h5><p>1，子网间传输带宽可任意分配：传统路由器每个接口连接一个子网，子网通过路由器进行传输的速率被接口的带宽所限制。而三层交换机则不同，它可以把多个端口定义成一个虚拟网，把多个端口组成的虚拟网作为虚拟网接口，该虚拟网内信息可通过组成虚拟网的端口送给三层交换机，由于端口数可任意指定，子网间传输带宽没有限制</p>
 <p>2，降低成本：通常的网络设计用交换机构成子网，用路由器进行子网间互连。目前采用三层交换机进行网络设计，既可以进行任意虚拟子网划分，又可以通过交换机三层路由功能完成子网间通信，为此节省了价格昂贵的路由器。</p>
+<hr>
+<p>###如何划分vlan</p>
+<hr>
+<p>###防火墙的工作原理</p>
+<p>###交换机的三种端口模式是什么</p>
+<p>Access类型端口：只能属于1个VLAN，一般用于连接计算机端口；</p>
+<p>Trunk类型端口：可以允许多个VLAN通过,可以接收和发送多个VLAN 报文,</p>
+<p>一般用于交换机与交换机相关的接口。</p>
+<p>Hybrid类型端口：可以允许多个VLAN通过，可以接收和发送多个VLAN 报文，</p>
+<p>可以用于交换机的间连接也可以用于连接用户计算机。</p>
+<p>###access和trunk区别</p>
+<p>###acl技术是什么</p>
+<p>###nat划分</p>
 <p>###数据库备份和恢复的命令</p>
+<p>###按照交换机分类</p>
+<ul>
+<li>核心层：核心层是网络的高速交换主干，对整个网络的连通起到至关重要的作用。核心层应该具有如下几个特性：可靠性、高效性、冗余性、容错性、可管理性、适应性、低延时性等。因为核心层是网络的枢纽中心，重要性突出。核心层设备采用双机冗余热备份是非常必要的，也可以使用负载均衡功能，来改善网络性能。</li>
+<li>汇聚层：汇聚层是网络接入层和核心层的“中介”，就是在有线终端接入核心层前先做汇聚，以减轻核心层设备的负荷。汇聚层必须能够处理来自接入层设备的所有通信量，并提供到核心层的上行链路，因此汇聚层交换机与接入层交换机比较，需要更高的性能，更少的接口和更高的交换速率。在汇聚层中，应该采用支持三层交换技术和VLAN的交换机，以达到网络隔离和分段的目的。</li>
+<li>接入层：通常将网络中直接面向用户连接或访问网络的部分称为接入层，接入层目的是允许终端用户连接到网络，因此接入层交换机具有低成本和高端口密度特性。我们在接入层设计上主张使用性能价格比高的设备。接入层是最终用户与网络的接口，它应该提供即插即用的特性，同时应该非常易于使用和维护。一般POE交换机是直接接终端供电，所以POE交换机是作为接入层交换机。</li>
+</ul>
+<p>核心层需要处理所有的网络数据，汇聚层要处理所有的接入层数据，所以要求数据包转发能力：核心层&gt;汇聚层&gt;接入层</p>
+<p>docker run -p 3306:3306 –name mysql01 <br>-v &#x2F;root&#x2F;ruoyi&#x2F;mysql&#x2F;log:&#x2F;var&#x2F;log&#x2F;mysql <br>-v &#x2F;root&#x2F;ruoyi&#x2F;mysql&#x2F;conf&#x2F;my.cnf:&#x2F;etc&#x2F;mysql&#x2F;my.cnf <br>-v &#x2F;root&#x2F;ruoyi&#x2F;mysql&#x2F;data:&#x2F;var&#x2F;lib&#x2F;mysql <br>-e MYSQL_ROOT_PASSWORD&#x3D;123456 <br>-d mysql:8.0.19</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/05/11/%E7%BD%91%E7%BB%9C%E6%96%B9%E5%90%91%E9%9D%A2%E8%AF%95%E9%A2%98/" data-id="clhmrw3740001t0aq2p1beqwh" data-title="网络方向面试题" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/05/11/%E7%BD%91%E7%BB%9C%E6%96%B9%E5%90%91%E9%9D%A2%E8%AF%95%E9%A2%98/" data-id="clhn98cpw000070aq6fcofcev" data-title="网络方向面试题" class="article-share-link">Share</a>
       
       
       
@@ -316,7 +337,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/05/10/java%E9%9D%A2%E8%AF%95%E9%A2%98/" data-id="clhmrw3700000t0aq3e9l7uu3" data-title="java面试题" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/05/10/java%E9%9D%A2%E8%AF%95%E9%A2%98/" data-id="clhn98cq4000170aqdzcpc7wz" data-title="java面试题" class="article-share-link">Share</a>
       
       
       
@@ -433,7 +454,7 @@
 <li><strong>COUNT()</strong> ：计算指定字段在查询结构中出现的个数（不包含NULL值）</li>
 </ul>
 <hr>
-<h3 id="清空表-的三种方式"><a href="#清空表-的三种方式" class="headerlink" title="###清空表 的三种方式"></a>###清空表 的三种方式</h3><p>sql清空表数据的三种方式：<br>1、truncate–删除所有数据，保留表结构，不能撤销还原<br>2、delete–是逐行删除速度极慢，不适合大量数据删除<br>3、drop–删除表，数据和表结构一起删除，快速<br>二、语法<br>truncate table 表名<br>delete from 表名<br>delete from 表名 where 列名&#x3D;”value “<br>drop form 表名</p>
+<h3 id="清空表-的三种方式"><a href="#清空表-的三种方式" class="headerlink" title="###清空表 的三种方式"></a>###清空表 的三种方式</h3><p>sql清空表数据的三种方式：<br>1、truncate–删除所有数据，保留表结构，不能撤销还原<br>2、delete–是逐行删除表数据速度极慢，不适合大量数据删除<br>3、drop–删除表，数据和表结构一起删除，快速<br>二、语法<br>truncate table 表名<br>delete from 表名<br>delete from 表名 where 列名&#x3D;”value “<br>drop form 表名</p>
 <hr>
 <h3 id="drop-delete和truncate区别"><a href="#drop-delete和truncate区别" class="headerlink" title="###drop,delete和truncate区别"></a>###drop,delete和truncate区别</h3><p>TRUNCATE 和 DELETE 只删除数据，而 DROP 则删除整个表（结构和数据）。</p>
 <p>1）DELETE 删除操作作为事务记录在日志中保存以便进行进行回滚操作。</p>
@@ -459,11 +480,17 @@
 <p>###linux如何对磁盘进行分区管理</p>
 <p>###常见命令</p>
 <p>###数据库优化思路</p>
+<p>###nginx如何配置反向代理和负载均衡的，有什么作用</p>
+<p>###redis缓存是怎么实现的</p>
+<p>###maxscale等数据库插件如何使用和配置</p>
+<p>###keepalive是如何监控的</p>
+<p> ###软连接与硬链接的区别：<br>1、符号链接又叫软链接，和原文件不是一个文件。例如Windows的快捷方式，如果原始文件被删除，所有指向它的符号链接也就都被破坏了。符号链接记录的是目标的path。符号链接可以跨越文件系统，也可以为目录建立。软链接有自己的node，是linux特殊文件的一种，作为一个文件，它的数据是它所连接的文件的路径。</p>
+<p>2、硬链接，只能引用同一文件系统中的文件。它引用的是文件在文件系统中的物理索引（也称为inode）。当移动或者删除原始文件时，硬链接不会被破坏，因为它所引用的是文件的物理数据而不是文件在文件结构中的位置。硬链接记录的是目标的inode。同一文件的不同硬链接文件相当于该文件的多个不同文件名，即多个不同访问路径。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/05/06/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/" data-id="clhmrw37b0002t0aqajsaecal" data-title="linux面试题总结" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/05/06/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/" data-id="clhn98cq6000270aq0cm23eee" data-title="linux面试题总结" class="article-share-link">Share</a>
       
       
       

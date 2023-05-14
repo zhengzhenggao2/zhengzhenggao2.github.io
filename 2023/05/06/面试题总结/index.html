@@ -14,7 +14,7 @@
 <meta property="og:description" content="###Redis五大基本数据类型1.字符串 2.列表List 3.集合Set 4.哈希Hash 5.Zset  ###mysql主从复制原理①当Master节点进行insert、update、delete操作时，会按顺序写入到binlog中。 ②salve从库连接master主库，,Master有多少个slave就会创建多少个binlog dump线程。 ③当Master节点的binlog发生变化">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-05-06T05:05:27.000Z">
-<meta property="article:modified_time" content="2023-05-12T12:38:11.976Z">
+<meta property="article:modified_time" content="2023-05-14T09:54:13.767Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -178,7 +178,7 @@
 <li><strong>COUNT()</strong> ：计算指定字段在查询结构中出现的个数（不包含NULL值）</li>
 </ul>
 <hr>
-<h3 id="清空表-的三种方式"><a href="#清空表-的三种方式" class="headerlink" title="###清空表 的三种方式"></a>###清空表 的三种方式</h3><p>sql清空表数据的三种方式：<br>1、truncate–删除所有数据，保留表结构，不能撤销还原<br>2、delete–是逐行删除速度极慢，不适合大量数据删除<br>3、drop–删除表，数据和表结构一起删除，快速<br>二、语法<br>truncate table 表名<br>delete from 表名<br>delete from 表名 where 列名&#x3D;”value “<br>drop form 表名</p>
+<h3 id="清空表-的三种方式"><a href="#清空表-的三种方式" class="headerlink" title="###清空表 的三种方式"></a>###清空表 的三种方式</h3><p>sql清空表数据的三种方式：<br>1、truncate–删除所有数据，保留表结构，不能撤销还原<br>2、delete–是逐行删除表数据速度极慢，不适合大量数据删除<br>3、drop–删除表，数据和表结构一起删除，快速<br>二、语法<br>truncate table 表名<br>delete from 表名<br>delete from 表名 where 列名&#x3D;”value “<br>drop form 表名</p>
 <hr>
 <h3 id="drop-delete和truncate区别"><a href="#drop-delete和truncate区别" class="headerlink" title="###drop,delete和truncate区别"></a>###drop,delete和truncate区别</h3><p>TRUNCATE 和 DELETE 只删除数据，而 DROP 则删除整个表（结构和数据）。</p>
 <p>1）DELETE 删除操作作为事务记录在日志中保存以便进行进行回滚操作。</p>
@@ -204,11 +204,17 @@
 <p>###linux如何对磁盘进行分区管理</p>
 <p>###常见命令</p>
 <p>###数据库优化思路</p>
+<p>###nginx如何配置反向代理和负载均衡的，有什么作用</p>
+<p>###redis缓存是怎么实现的</p>
+<p>###maxscale等数据库插件如何使用和配置</p>
+<p>###keepalive是如何监控的</p>
+<p> ###软连接与硬链接的区别：<br>1、符号链接又叫软链接，和原文件不是一个文件。例如Windows的快捷方式，如果原始文件被删除，所有指向它的符号链接也就都被破坏了。符号链接记录的是目标的path。符号链接可以跨越文件系统，也可以为目录建立。软链接有自己的node，是linux特殊文件的一种，作为一个文件，它的数据是它所连接的文件的路径。</p>
+<p>2、硬链接，只能引用同一文件系统中的文件。它引用的是文件在文件系统中的物理索引（也称为inode）。当移动或者删除原始文件时，硬链接不会被破坏，因为它所引用的是文件的物理数据而不是文件在文件结构中的位置。硬链接记录的是目标的inode。同一文件的不同硬链接文件相当于该文件的多个不同文件名，即多个不同访问路径。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/05/06/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/" data-id="clhmrw37b0002t0aqajsaecal" data-title="linux面试题总结" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/05/06/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/" data-id="clhn98cq6000270aq0cm23eee" data-title="linux面试题总结" class="article-share-link">Share</a>
       
       
       
